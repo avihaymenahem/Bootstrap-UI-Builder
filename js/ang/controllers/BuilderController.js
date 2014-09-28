@@ -135,27 +135,42 @@ builder.controller('ToolBarCtrl', function($scope, $http){
 
         for(var i in activeElementObject.settings)
         {
-            var currentSetting = activeElementObject.settings[i],
-                settingParams = $scope.settingsElements[currentSetting],
-                htmlElement = $(settingParams.htmlElement);
-
-            settingsPanelWrapper.append(htmlElement);
-
-            htmlElement.off("keyup, change").on("keyup, change", function(e){
-                var settingParams = $scope.settingsElements[activeElementObject.settings[i]],
-                    currentValue = $(this).find("input").val();
-
-                switch(settingParams.change.attrType)
-                {
-                    default:
-                        activeElement.attr(settingParams.change.attrName, currentValue);
-                        break;
-
-                    case "css":
-                        activeElement.css(settingParams.change.attrName, currentValue);
-                        break;
-                }
-            });
+            $scope.setEvents(activeElementObject.settings[i]);
         }
+    };
+
+    $scope.setEvents = function(elementObject){
+        var settingsPanelWrapper = $("#settingsPanelWrapper"),
+            activeElement = $("#mainContentWrapper .active"),
+            settingParams = $scope.settingsElements[elementObject],
+            clonedElement = $(settingParams.htmlElement).clone(true, true),
+            currentChangeSettings = settingParams.change,
+            eventType = currentChangeSettings.eventType,
+            eventEmitter = currentChangeSettings.eventEmitter,
+            attrType = currentChangeSettings.attrType,
+            attrName = currentChangeSettings.attrName;
+
+        /** Setting the input name with the current input value */
+        clonedElement.find(eventEmitter).val(activeElement.attr(attrName));
+
+        /** Appending the input/element to the settings panel */
+        settingsPanelWrapper.append(clonedElement);
+
+        /** Attaching change event to the setting input/element */
+        clonedElement.find(eventEmitter).on(eventType, function(){
+            var currentValue = $(this).val();
+
+            switch(attrType)
+            {
+                default:
+                case "attribute":
+                    activeElement.attr(attrName, currentValue);
+                    break;
+
+                case "css":
+                    activeElement.css(attrName, currentValue);
+                    break;
+            }
+        });
     };
 });

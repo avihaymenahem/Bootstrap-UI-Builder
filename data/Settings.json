@@ -1,51 +1,83 @@
 {
     "id": {
-        "htmlElement" : "<div class=\"form-group idInput\"><label>ID:</label><input type=\"text\" class=\"form-control\"></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>ID:</label><input type=\"text\" class=\"idInput form-control\"></div>",
         "change": {
+            "eventType": "keyup",
             "attrType": "attribute",
-            "attrName": "id"
+            "attrName": "id",
+            "eventEmitter" : ".idInput"
         }
     },
     "class": {
-        "htmlElement" : "<div class=\"form-group classInput\"><label>Classes:</label><input type=\"text\" class=\"form-control\"></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>Classes:</label><input type=\"text\" class=\"classInput form-control\"></div>",
         "change": {
+            "eventType": "keyup",
             "attrType": "attribute",
-            "attrName": "class"
+            "attrName": "class",
+            "eventEmitter" : ".classInput"
         }
     },
     "inputType": {
-        "htmlElement" : "<div class=\"form-group typeInput\"><label>Input Type:</label><select class=\"form-control\"><option value=\"text\">Text</option><option value=\"password\">Password</option><option value=\"email\">Email</option><option value=\"datetime\">Datetime</option><option value=\"date\">Date</option><option value=\"time\">Time</option><option value=\"number\">Number</option><option value=\"url\">URL</option><option value=\"serach\">Search</option><option value=\"tel\">Tel</option><option value=\"color\">Color</option></select></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>Input Type:</label><select class=\"typeInput form-control\"><option value=\"text\">Text</option><option value=\"password\">Password</option><option value=\"email\">Email</option><option value=\"datetime\">Datetime</option><option value=\"date\">Date</option><option value=\"time\">Time</option><option value=\"number\">Number</option><option value=\"url\">URL</option><option value=\"serach\">Search</option><option value=\"tel\">Tel</option><option value=\"color\">Color</option></select></div>",
         "change": {
+            "eventType": "change",
             "attrType": "attribute",
-            "attrName": "type"
+            "attrName": "type",
+            "eventEmitter" : ".typeInput"
         }
     },
     "placeholder": {
-        "htmlElement" : "<div class=\"form-group placeholderInput\"><label>Placeholder:</label><input type=\"text\" class=\"form-control\"></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>Placeholder:</label><input type=\"text\" class=\"placeholderInput form-control\"></div>",
         "change": {
+            "eventType": "keyup",
             "attrType": "attribute",
-            "attrName": "placeholder"
+            "attrName": "placeholder",
+            "eventEmitter" : ".placeholderInput"
         }
     },
     "float": {
-        "htmlElement" : "<div class=\"form-group floatInput\"><label>Float:</label><select class=\"form-control\"><option value=\"none\">None</option><option value=\"left\">Left</option><option value=\"right\">Right</option></select></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>Float:</label><select class=\"floatInput form-control\"><option value=\"none\">None</option><option value=\"left\">Left</option><option value=\"right\">Right</option></select></div>",
         "change": {
+            "eventType": "change",
             "attrType": "css",
-            "attrName": "float"
+            "attrName": "float",
+            "eventEmitter" : ".floatInput"
         }
     },
     "alt" : {
-        "htmlElement" : "<div class=\"form-group altInput\"><label>Alt:</label><input type=\"text\" class=\"form-control\"></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>Alt:</label><input type=\"text\" class=\"altInput form-control\"></div>",
         "change": {
+            "eventType": "keyup",
             "attrType": "attribute",
-            "attrName": "alt"
+            "attrName": "alt",
+            "eventEmitter" : ".altInput"
         }
     },
     "name" : {
-        "htmlElement" : "<div class=\"form-group nameInput\"><label>Name:</label><input type=\"text\" class=\"form-control\"></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>Name:</label><input type=\"text\" class=\"nameInput form-control\"></div>",
         "change": {
+            "eventType": "keyup",
             "attrType": "attribute",
-            "attrName": "name"
+            "attrName": "name",
+            "eventEmitter" : ".nameInput"
+        }
+    },
+    "width" : {
+        "htmlElement" : "<div class=\"form-group\"><label>Width:</label><input type=\"text\" class=\"widthInput form-control\"></div>",
+        "change": {
+            "eventType": "keyup",
+            "attrType": "attribute",
+            "attrName": "width",
+            "eventEmitter" : ".widthInput"
+        }
+    },
+    "height" : {
+        "htmlElement" : "<div class=\"form-group\"><label>Width:</label><input type=\"text\" class=\"heightInput form-control\"></div>",
+        "change": {
+            "eventType": "keyup",
+            "attrType": "attribute",
+            "attrName": "height",
+            "eventEmitter" : ".heightInput"
         }
     }
 }

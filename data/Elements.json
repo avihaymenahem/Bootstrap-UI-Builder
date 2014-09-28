@@ -100,7 +100,7 @@
         "Image": {
             "image": "elements/image.png",
             "htmlElement" : "<img src=\"http://photos.prnewswire.com/prnvar/20121108/NY07649LOGO-b?max=100\" insideDrag>",
-            "settings" : ["id", "class", "float", "alt"]
+            "settings" : ["id", "class", "float", "alt", "width", "height"]
         },
         "Well": {
             "image": "elements/well.png",

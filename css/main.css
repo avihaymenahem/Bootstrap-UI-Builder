@@ -20,7 +20,7 @@ body [contenteditable="true"]:focus
     display: block;
     box-sizing: border-box;
     border: 1px solid #000;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 40px);
     overflow-y: auto;
     overflow-x: hidden;
     border-bottom: 0;
@@ -36,6 +36,7 @@ body [contenteditable="true"]:focus
     border-left: 0;
     min-height: 600px;
     position: relative;
+    background: #23303D;
 }
 
 .navbar
@@ -54,11 +55,13 @@ body [contenteditable="true"]:focus
     display: none;
 }
 
-#mainContentWrapper .active
+#mainContentWrapper .active,
+#mainContentWrapper [insideDrag]:hover
 {
     border: 1px solid #4fcfff;
-    border-radius: 5px;
+    border-radius: 2px;
     box-sizing: content-box;
+    overflow: hidden;
 }
 
 .hiddenClickedElementToolbar
