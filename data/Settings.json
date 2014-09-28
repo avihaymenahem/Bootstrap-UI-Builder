@@ -1,0 +1,51 @@
+{
+    "id": {
+        "htmlElement" : "<div class=\"form-group idInput\"><label>ID:</label><input type=\"text\" class=\"form-control\"></div>",
+        "change": {
+            "attrType": "attribute",
+            "attrName": "id"
+        }
+    },
+    "class": {
+        "htmlElement" : "<div class=\"form-group classInput\"><label>Classes:</label><input type=\"text\" class=\"form-control\"></div>",
+        "change": {
+            "attrType": "attribute",
+            "attrName": "class"
+        }
+    },
+    "inputType": {
+        "htmlElement" : "<div class=\"form-group typeInput\"><label>Input Type:</label><select class=\"form-control\"><option value=\"text\">Text</option><option value=\"password\">Password</option><option value=\"email\">Email</option><option value=\"datetime\">Datetime</option><option value=\"date\">Date</option><option value=\"time\">Time</option><option value=\"number\">Number</option><option value=\"url\">URL</option><option value=\"serach\">Search</option><option value=\"tel\">Tel</option><option value=\"color\">Color</option></select></div>",
+        "change": {
+            "attrType": "attribute",
+            "attrName": "type"
+        }
+    },
+    "placeholder": {
+        "htmlElement" : "<div class=\"form-group placeholderInput\"><label>Placeholder:</label><input type=\"text\" class=\"form-control\"></div>",
+        "change": {
+            "attrType": "attribute",
+            "attrName": "placeholder"
+        }
+    },
+    "float": {
+        "htmlElement" : "<div class=\"form-group floatInput\"><label>Float:</label><select class=\"form-control\"><option value=\"none\">None</option><option value=\"left\">Left</option><option value=\"right\">Right</option></select></div>",
+        "change": {
+            "attrType": "css",
+            "attrName": "float"
+        }
+    },
+    "alt" : {
+        "htmlElement" : "<div class=\"form-group altInput\"><label>Alt:</label><input type=\"text\" class=\"form-control\"></div>",
+        "change": {
+            "attrType": "attribute",
+            "attrName": "alt"
+        }
+    },
+    "name" : {
+        "htmlElement" : "<div class=\"form-group nameInput\"><label>Name:</label><input type=\"text\" class=\"form-control\"></div>",
+        "change": {
+            "attrType": "attribute",
+            "attrName": "name"
+        }
+    }
+}

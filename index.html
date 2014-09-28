@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="BootstrapBuilder">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/favicon.ico">
+    <title>Dashboard Template for Bootstrap</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <script src="js/plugins/jquery.min.js"></script>
+    <script src="js/plugins/jquery-ui.js"></script>
+    <!--script src="js/plugins/bootstrap.js"></script>
+    <script src="js/plugins/holder.plugin.js"></script-->
+    <script src="js/plugins/Angular.js"></script>
+    <script src="js/ang/controllers/BuilderController.js"></script>
+</head>
+
+<body>
+<nav class="navbar" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Bootstrap UI Builder</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" ng-controller="ToolBarCtrl">
+    <div class="row clearfix">
+        <div id="toolbarWrapper" class="col-md-2 column">
+            <div ng-repeat="(elemKey, elemVal) in toolbarElements">
+                <ng ng-if="elemVal">
+                    <div class="col-md-6 draggableChild" ng-repeat="(childElemKey, childElemVal) in elemVal | orderBy: childElemKey" draggable data-group="{{ elemKey }}" data-childName="{{ childElemKey }}">
+                        <div class="thumbnail elementItem">
+                            <img ng-if="childElemVal.image" src="images/{{ childElemVal.image }}">
+                            <div class="caption">{{ childElemKey }}</div>
+                        </div>
+                    </div>
+                </ng>
+            </div>
+        </div>
+
+        <div id="mainContentWrapper" class="col-md-8 column" droppable>
+            <div class="hiddenClickedElementToolbar">
+                <div class="copyElement" ng-click="duplicateItem($event); $event.stopPropagation();"><i class="glyphicon glyphicon-file"></i></div>
+                <div class="deleteElement" ng-click="deleteItem($event); $event.stopPropagation();"><i class="glyphicon glyphicon-trash"></i></div>
+            </div>
+        </div>
+
+        <div id="settingsPanelWrapper" class="col-md-2 column">
+            Settings
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
