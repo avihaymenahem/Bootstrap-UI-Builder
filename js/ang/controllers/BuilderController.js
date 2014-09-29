@@ -40,6 +40,7 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
     $scope.toolbarElements = {};
     $scope.settingsElements = {};
     $scope.existElements = {};
+    $scope.currentActiveElementID = "";
 
     $http.get("data/Elements.json").success(function(data, status, headers, config){
         $scope.toolbarElements = data;
@@ -55,6 +56,7 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
         if(!elem.hasClass("draggableChild"))
         {
             elem.appendTo(dropElem);
+            $scope.calculateActiveElementPos(elem);
             return;
         }
 
@@ -85,16 +87,18 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
             });
 
             clonedElem.click(function(e){
+                e.preventDefault();
                 e.stopPropagation();
                 $scope.itemClick($(this));
             });
         }
 
-        if(returnItem)
-        {
-            return clonedElem;
-        }
+        if(returnItem) return clonedElem;
+    };
 
+    $scope.emptySettingsContainer = function()
+    {
+        $("#settingsPanelWrapper .settingsContainer").empty();
     };
 
     $scope.itemClick = function(elem) {
@@ -104,7 +108,7 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
         {
             hiddenToolbarTooltip.hide();
             elem.removeClass("active");
-            $("#settingsPanelWrapper .settingsContainer").empty();
+            $scope.emptySettingsContainer();
         }
         else
         {
@@ -118,8 +122,9 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
 
     $scope.calculateActiveElementPos = function(elem) {
         var hiddenToolbarTooltip = $(".hiddenClickedElementToolbar"),
+            elemWidth = elem.outerWidth() > elem.innerWidth() ? elem.outerWidth() : elem.innerWidth(),
             topPos = elem.position().top + elem.outerHeight() - 1,
-            leftPos = elem.position().left + elem.outerWidth() - hiddenToolbarTooltip.innerWidth() - 2,
+            leftPos = elem.position().left + elemWidth - hiddenToolbarTooltip.innerWidth() - 2,
             mainWrapperWidth = $("#mainContentWrapper").width();
 
         if(leftPos > mainWrapperWidth)
@@ -163,7 +168,7 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
             elementChildName = activeElement.attr("data-childName"),
             activeElementObject = $scope.toolbarElements[elementGroup][elementChildName];
 
-        settingsPanelWrapper.empty();
+        $scope.emptySettingsContainer();
 
         for(var i in activeElementObject.settings)
         {
@@ -178,6 +183,10 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
             stringName = $scope.generateRandomID(groupName, elementName);
         }
         return stringName;
+    };
+
+    $scope.addGridChildSpan = function(elem) {
+        elem.find(".col-md-4:first").clone(true, true).appendTo(elem);
     };
 
     $scope.setEvents = function(elementObjectSettings, elementObject){
@@ -212,7 +221,6 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
             {
                 default:
                 case "attribute":
-                    console.log(activeElement, attrName, attrType, currentValue);
                     elementToChange.attr(attrName, currentValue);
                     break;
 
@@ -222,6 +230,14 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
 
                 case "html":
                     elementToChange.html(attrName, currentValue);
+                    break;
+
+                case "text":
+                    elementToChange.text(currentValue);
+                    break;
+
+                case "function":
+                    $scope[currentChangeSettings.eventFunction](activeElement);
                     break;
             }
         });

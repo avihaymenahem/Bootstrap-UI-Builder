@@ -35,6 +35,15 @@
             "eventEmitter" : ".floatInput"
         }
     },
+    "multipleSelect": {
+        "htmlElement" : "<div class=\"form-group\"><label>Multiple:</label><select class=\"multipleSelectInput form-control\"><option value=\"true\">True</option><option value=\"false\">False</option></select></div>",
+        "change": {
+            "eventType": "change",
+            "attrType": "attribute",
+            "attrName": "multiple",
+            "eventEmitter" : ".multipleSelectInput"
+        }
+    },
     "alt" : {
         "htmlElement" : "<div class=\"form-group\"><label>Alt:</label><input type=\"text\" class=\"altInput form-control\"></div>",
         "change": {
@@ -71,6 +80,15 @@
             "eventEmitter" : ".heightInput"
         }
     },
+    "src" : {
+        "htmlElement" : "<div class=\"form-group\"><label>Image Source:</label><input type=\"text\" class=\"imgSrcInput form-control\"></div>",
+        "change": {
+            "eventType": "keyup",
+            "attrType": "attribute",
+            "attrName": "src",
+            "eventEmitter" : ".imgSrcInput"
+        }
+    },
     "gridLayout" : {
         "htmlElement" : "<div class=\"form-group\"><label>Grid Layout:</label><select class=\"gridLayoutInput form-control\"><option value=\"6-6\">6-6</option><option value=\"4-4-4\">4-4-4</option><option value=\"4-8\">4-8</option><option value=\"8-4\">8-4</option><option value=\"3-3-3-3\">3-3-3-3</option><option value=\"2-10\">2-10</option><option value=\"10-2\">10-2</option><option value=\"3-9\">9-3</option><option value=\"custom\">custom</option></select></div>",
         "hiddenHtmlElement": "<input type=\"text\" class=\"gridLayoutCustomInput\">",
@@ -86,8 +104,17 @@
         "change": {
             "eventFunction" : "addGridChildSpan",
             "eventType": "click",
-            "attrType": "html",
+            "attrType": "function",
             "eventEmitter" : ".addGridChildSpanButton"
+        }
+    },
+    "label" : {
+        "htmlElement" : "<div class=\"form-group\"><label>Label:</label><input type=\"text\" class=\"labelInput form-control\"></div>",
+        "change": {
+            "eventType": "keyup",
+            "attrType": "text",
+            "changeAbleElement" : "label",
+            "eventEmitter" : ".labelInput"
         }
     }
 }
