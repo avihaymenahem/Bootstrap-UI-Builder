@@ -87,7 +87,7 @@
             "name" : "Button",
             "image": "elements/button.png",
             "htmlElement" : "<a href=\"#\" class=\"btn btn-default\" droppable insideDrag>Click!</a>",
-            "settings" : ["class"]
+            "settings" : ["class", "float"]
         },
         "Button Group": {
             "name" : "Button Group",

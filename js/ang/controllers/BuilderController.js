@@ -40,7 +40,6 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
     $scope.toolbarElements = {};
     $scope.settingsElements = {};
     $scope.existElements = {};
-    $scope.currentActiveElementID = "";
 
     $http.get("data/Elements.json").success(function(data, status, headers, config){
         $scope.toolbarElements = data;
@@ -50,8 +49,21 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
         $scope.settingsElements = data;
     });
 
-    $scope.buildElementOnDOM = function(elem, dropElem, $compile, returnItem)
-    {
+    $scope.init = function(){
+        $("#mainContentWrapper").click(function(){
+            $(this).find(".active").removeClass("active");
+            $(".hiddenClickedElementToolbar").hide();
+            $scope.emptySettingsContainer();
+        });
+
+        KeyboardJS.on("delete", null, function(){
+            $scope.deleteItem(null);
+        });
+    };
+
+    $scope.init();
+
+    $scope.buildElementOnDOM = function(elem, dropElem, $compile, returnItem) {
         /** If the element is not new and dragged inside the work area, only move and not create new Object */
         if(!elem.hasClass("draggableChild"))
         {
@@ -139,7 +151,7 @@ builder.controller('ToolBarCtrl', function($scope, $http, $compile){
     };
 
     $scope.deleteItem = function($event) {
-        $event.stopPropagation();
+        if($event) $event.stopPropagation();
         $("#mainContentWrapper .active").remove();
         $(".hiddenClickedElementToolbar").hide();
     };
