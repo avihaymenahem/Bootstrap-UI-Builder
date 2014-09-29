@@ -39,6 +39,11 @@ body [contenteditable="true"]:focus
     background: #23303D;
 }
 
+#settingsPanelWrapper
+{
+    padding-top: 0;
+}
+
 .navbar
 {
     margin-bottom: 0;

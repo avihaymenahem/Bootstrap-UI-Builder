@@ -7,7 +7,7 @@ builder.directive('draggable', function(){
             element.draggable({
                 scroll: false,
                 helper: function(){
-                    return $(this).find("img").clone()
+                    return $(this).find("img").clone();
                 },
                 start: function(e, ui) {
                     ui.helper.css({"z-index": 99});
@@ -23,55 +23,23 @@ builder.directive('draggable', function(){
 builder.directive('droppable', function($compile){
     return {
         restrict: 'A',
-        link: function(scope, element, attrs){
+        link: function(scope, element, attrs) {
             element.droppable({
                 accept: ".draggableChild, .ui-draggable",
                 hoverClass: "drop-hover",
                 greedy : true,
-                drop: function(event, ui){
-                    if(!ui.draggable.hasClass("draggableChild"))
-                    {
-                        ui.draggable.appendTo($(this));
-                        return;
-                    }
-
-                    var elementGroup = ui.draggable.attr("data-group"),
-                        elementChildName = ui.draggable.attr("data-childName"),
-                        selectedElement = scope.toolbarElements[elementGroup][elementChildName],
-                        clonedElement = $(selectedElement.htmlElement) ;
-
-                    clonedElement.attr({
-                        "data-group" : elementGroup,
-                        "data-childName" : elementChildName
-                    });
-
-                    $compile(clonedElement)(scope);
-                    $(this).append(clonedElement)
-                    scope.setContentEditable(element);
-
-                    if(clonedElement.attr("insidedrag") != undefined)
-                    {
-                        clonedElement.draggable({
-                            scroll: false,
-                            stop: function(){
-                                $(this).css({top: 0, left: 0});
-                            }
-                        });
-
-                        clonedElement.click(function(e){
-                            e.stopPropagation();
-                            scope.itemClick($(this));
-                        });
-                    }
+                drop: function(event, ui) {
+                    scope.buildElementOnDOM(ui.draggable, $(this), $compile);
                 }
             });
         }
     }
 });
 
-builder.controller('ToolBarCtrl', function($scope, $http){
+builder.controller('ToolBarCtrl', function($scope, $http, $compile){
     $scope.toolbarElements = {};
     $scope.settingsElements = {};
+    $scope.existElements = {};
 
     $http.get("data/Elements.json").success(function(data, status, headers, config){
         $scope.toolbarElements = data;
@@ -81,33 +49,88 @@ builder.controller('ToolBarCtrl', function($scope, $http){
         $scope.settingsElements = data;
     });
 
-    $scope.setContentEditable = function(elem){
-        //$(elem).find("li, p, span, h1, h2, h3, h4, h5, h6, button, label").attr("contenteditable", true);
+    $scope.buildElementOnDOM = function(elem, dropElem, $compile, returnItem)
+    {
+        /** If the element is not new and dragged inside the work area, only move and not create new Object */
+        if(!elem.hasClass("draggableChild"))
+        {
+            elem.appendTo(dropElem);
+            return;
+        }
+
+        var elemOpts = {
+                "data-group" : elem.attr("data-group"),
+                "data-childName" : elem.attr("data-childName")
+            },
+            elemObj = $scope.toolbarElements[elemOpts["data-group"]][elemOpts["data-childName"]],
+            clonedElem = $(elemObj.htmlElement),
+            elemNewID = $scope.generateRandomID(elemOpts["data-group"], elemOpts["data-childName"]);
+
+        elemOpts["id"] = elemNewID;
+        /** Assigning the data attributes to the element on the dom */
+        clonedElem.attr(elemOpts);
+        /** Saving a reference to the object on angular array */
+        $scope.existElements[elemNewID] = elemOpts;
+        /** Compiling the html string of the new element */
+        $compile(clonedElem)($scope);
+        /** Inserting the new element to the DOM */
+        dropElem.append(clonedElem);
+
+        /** If the item can be dragged inside the work area, lets set it */
+        if(clonedElem.attr("insidedrag") != undefined)
+        {
+            clonedElem.draggable({
+                scroll: false,
+                stop: function(){ $(this).css({top: 0, left: 0}) }
+            });
+
+            clonedElem.click(function(e){
+                e.stopPropagation();
+                $scope.itemClick($(this));
+            });
+        }
+
+        if(returnItem)
+        {
+            return clonedElem;
+        }
+
     };
 
     $scope.itemClick = function(elem) {
-        var hiddenToolbarTooltip = $(".hiddenClickedElementToolbar"),
-            topPos = elem.position().top + elem.outerHeight() - 1,
-            leftPos = elem.position().left + elem.outerWidth() - hiddenToolbarTooltip.width() - 2;
+        var hiddenToolbarTooltip = $(".hiddenClickedElementToolbar");
 
         if(elem.hasClass("active"))
         {
             hiddenToolbarTooltip.hide();
             elem.removeClass("active");
-            $("#settingsPanelWrapper").empty();
+            $("#settingsPanelWrapper .settingsContainer").empty();
         }
         else
         {
             hiddenToolbarTooltip.show();
             $("#mainContentWrapper .active").removeClass("active");
             elem.addClass("active");
-            hiddenToolbarTooltip.css({
-                top: topPos,
-                left: leftPos
-            });
-
+            $scope.calculateActiveElementPos(elem);
             $scope.setSettingsByActiveElement();
         }
+    };
+
+    $scope.calculateActiveElementPos = function(elem) {
+        var hiddenToolbarTooltip = $(".hiddenClickedElementToolbar"),
+            topPos = elem.position().top + elem.outerHeight() - 1,
+            leftPos = elem.position().left + elem.outerWidth() - hiddenToolbarTooltip.innerWidth() - 2,
+            mainWrapperWidth = $("#mainContentWrapper").width();
+
+        if(leftPos > mainWrapperWidth)
+        {
+            leftPos = mainWrapperWidth - 8;
+        }
+
+        hiddenToolbarTooltip.css({
+            top: topPos,
+            left: leftPos
+        });
     };
 
     $scope.deleteItem = function($event) {
@@ -119,13 +142,22 @@ builder.controller('ToolBarCtrl', function($scope, $http){
     $scope.duplicateItem = function($event) {
         $event.stopPropagation();
         var activeItem = $("#mainContentWrapper .active"),
-            activeItemParent = activeItem.parent();
+            activeItemParent = activeItem.parent(),
+            activeItemGroup = activeItem.attr("data-group"),
+            activeItemName = activeItem.attr("data-childName"),
+            newClonedElement = $($scope.toolbarElements[activeItemGroup][activeItemName].htmlElement);
 
-        activeItem.clone(true, true).removeClass("active").appendTo(activeItemParent);
+        newClonedElement.addClass("draggableChild").attr({
+            "data-group" : activeItemGroup,
+            "data-childName" : activeItemName
+        });
+
+        var clonedDomElement = $scope.buildElementOnDOM(newClonedElement, activeItemParent, $compile, true);
+        clonedDomElement.click();
     };
 
     $scope.setSettingsByActiveElement = function() {
-        var settingsPanelWrapper = $("#settingsPanelWrapper"),
+        var settingsPanelWrapper = $("#settingsPanelWrapper .settingsContainer"),
             activeElement = $("#mainContentWrapper .active"),
             elementGroup = activeElement.attr("data-group"),
             elementChildName = activeElement.attr("data-childName"),
@@ -135,40 +167,61 @@ builder.controller('ToolBarCtrl', function($scope, $http){
 
         for(var i in activeElementObject.settings)
         {
-            $scope.setEvents(activeElementObject.settings[i]);
+            $scope.setEvents(activeElementObject.settings[i], activeElementObject);
         }
     };
 
-    $scope.setEvents = function(elementObject){
-        var settingsPanelWrapper = $("#settingsPanelWrapper"),
+    $scope.generateRandomID = function(groupName, elementName) {
+        var stringName = groupName + "_" + elementName + "_" + Math.floor((Math.random() * 10000) + 1);
+        if($scope.existElements[stringName])
+        {
+            stringName = $scope.generateRandomID(groupName, elementName);
+        }
+        return stringName;
+    };
+
+    $scope.setEvents = function(elementObjectSettings, elementObject){
+        var settingsPanelWrapper = $("#settingsPanelWrapper .settingsContainer"),
             activeElement = $("#mainContentWrapper .active"),
-            settingParams = $scope.settingsElements[elementObject],
+            settingParams = $scope.settingsElements[elementObjectSettings],
             clonedElement = $(settingParams.htmlElement).clone(true, true),
             currentChangeSettings = settingParams.change,
             eventType = currentChangeSettings.eventType,
             eventEmitter = currentChangeSettings.eventEmitter,
             attrType = currentChangeSettings.attrType,
-            attrName = currentChangeSettings.attrName;
+            attrName = currentChangeSettings.attrName,
+            elementID = activeElement.attr("id");
 
-        /** Setting the input name with the current input value */
-        clonedElement.find(eventEmitter).val(activeElement.attr(attrName));
+        if(attrName)
+        {
+            /** Setting the input name with the current input value */
+            clonedElement.find(eventEmitter).val(activeElement.attr(attrName));
+        }
 
         /** Appending the input/element to the settings panel */
         settingsPanelWrapper.append(clonedElement);
 
         /** Attaching change event to the setting input/element */
         clonedElement.find(eventEmitter).on(eventType, function(){
-            var currentValue = $(this).val();
+            var currentValue = $(this).val(),
+                elementToChange = elementObject.htmlChangeElement ? activeElement.find(elementObject.htmlChangeElement) : activeElement;
+
+            $scope.existElements[elementID][attrName] = currentValue;
 
             switch(attrType)
             {
                 default:
                 case "attribute":
-                    activeElement.attr(attrName, currentValue);
+                    console.log(activeElement, attrName, attrType, currentValue);
+                    elementToChange.attr(attrName, currentValue);
                     break;
 
                 case "css":
-                    activeElement.css(attrName, currentValue);
+                    elementToChange.css(attrName, currentValue);
+                    break;
+
+                case "html":
+                    elementToChange.html(attrName, currentValue);
                     break;
             }
         });

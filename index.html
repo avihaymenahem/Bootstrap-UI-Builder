@@ -16,8 +16,8 @@
 
     <script src="js/plugins/jquery.min.js"></script>
     <script src="js/plugins/jquery-ui.js"></script>
-    <!--script src="js/plugins/bootstrap.js"></script>
-    <script src="js/plugins/holder.plugin.js"></script-->
+    <script src="js/plugins/bootstrap.js"></script>
+    <script src="js/plugins/holder.plugin.js"></script>
     <script src="js/plugins/Angular.js"></script>
     <script src="js/ang/controllers/BuilderController.js"></script>
 </head>
@@ -49,15 +49,13 @@
 <div class="container-fluid" ng-controller="ToolBarCtrl">
     <div class="row clearfix">
         <div id="toolbarWrapper" class="col-md-2 column">
-            <div ng-repeat="(elemKey, elemVal) in toolbarElements">
-                <ng ng-if="elemVal">
-                    <div class="col-md-6 draggableChild" ng-repeat="(childElemKey, childElemVal) in elemVal | orderBy: childElemKey" draggable data-group="{{ elemKey }}" data-childName="{{ childElemKey }}">
-                        <div class="thumbnail elementItem">
-                            <img ng-if="childElemVal.image" src="images/{{ childElemVal.image }}">
-                            <div class="caption">{{ childElemKey }}</div>
-                        </div>
+            <div ng-repeat="(elemKey, elemVal) in toolbarElements" ng-if="elemVal">
+                <div class="col-md-6 draggableChild" ng-repeat="(childElemKey, childElemVal) in elemVal | orderBy: childElemKey" draggable data-group="{{ elemKey }}" data-childName="{{ childElemKey }}">
+                    <div class="thumbnail elementItem">
+                        <img ng-if="childElemVal.image" src="images/{{ childElemVal.image }}">
+                        <div class="caption">{{ childElemKey }}</div>
                     </div>
-                </ng>
+                </div>
             </div>
         </div>
 
@@ -69,7 +67,10 @@
         </div>
 
         <div id="settingsPanelWrapper" class="col-md-2 column">
-            Settings
+
+            <h3>Settings</h3>
+            <hr/>
+            <div class="settingsContainer"></div>
         </div>
     </div>
 </div>

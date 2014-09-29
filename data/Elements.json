@@ -3,124 +3,125 @@
         "GridRow": {
             "image": "elements/grid_row.png",
             "htmlElement" : "<div class=\"row\" insideDrag droppable><div class=\"col-md-4\" droppable><h3 droppable>Span 4</h3><p droppable>Content</p></div><div class=\"col-md-4\" droppable><h3 droppable>Span 4</h3><p droppable>Content</p></div><div class=\"col-md-4\" droppable><h3 droppable>Span 4</h3><p droppable>Content</p></div></div>",
-            "settings" : ["id", "class"]
+            "settings" : ["class", "gridLayout", "float", "addChildSpan"]
         }
     },
     "Typography": {
         "Heading": {
             "image": "elements/heading.png",
             "htmlElement" : "<h3 droppable insideDrag>Heading</h3>",
-            "settings" : ["id", "class", "float"]
+            "settings" : ["class", "float"]
         }
     },
     "List": {
         "List Group": {
             "image": "elements/list_group.png",
             "htmlElement" : "<ul class=\"list-group\" insideDrag><li class=\"list-group-item\" droppable><span class=\"badge\" droppable>14</span>Cras justo odio</li><li class=\"list-group-item\" droppable><span class=\"badge\" droppable>2</span>Dapibus ac facilisis in</li><li class=\"list-group-item\" droppable><span class=\"badge\" droppable>1</span>Morbi leo risus</li></ul>",
-            "settings" : ["id", "class", "float"]
+            "settings" : ["class", "float"]
         }
     },
     "Tables": {
         "table": {
             "image": "elements/table.png",
             "htmlElement" : "<table class=\"table\" insideDrag><tbody><tr><td droppable>Cell 1</td><td droppable>Cell 2</td><td droppable>Cell 3</td></tr></tbody></table>",
-            "settings" : ["id", "class", "float"]
+            "settings" : ["class", "float"]
         }
     },
     "Forms": {
         "Form": {
             "image": "elements/form.png",
             "htmlElement" : "<form droppable insideDrag></form>",
-            "settings" : ["id", "class", "float", "name"]
+            "settings" : ["class", "float", "name"]
         },
         "Submit Button": {
             "image": "elements/button.png",
             "htmlElement" : "<button type=\"submit\" class=\"btn btn-default\" droppable insideDrag>Click!</button>",
-            "settings" : ["id", "class", "float", "name"]
+            "settings" : ["class", "float", "name"]
         },
         "Text Input": {
             "image": "elements/text_input.png",
             "htmlElement" : "<div class=\"form-group\" droppable insideDrag><label droppable>Text</label><input type=\"text\" class=\"form-control\"></div>",
+            "htmlChangeElement" : "input",
             "settings" : ["class", "inputType", "placeholder", "float", "name"]
         },
         "select": {
             "image": "elements/select_input.png",
             "htmlElement" : "<div class=\"form-group\" droppable insideDrag><label droppable>Choose wisely:</label><select class=\"form-control\"><option value=\"pizza\">Pizza</option><option value=\"salad\">Salad</option><option value=\"pizzasalad\">Pizza and Salad</option></select></div>",
-            "settings" : ["id", "class", "float", "name"]
+            "settings" : ["class", "float", "name"]
         },
         "Choose File": {
             "image": "elements/file_input.png",
             "htmlElement" : "<div class=\"form-group\" droppable insideDrag><label droppable>Upload your file:</label><input type=\"file\" class=\"form-control\"></div>",
-            "settings" : ["id", "class", "float", "name"]
+            "settings" : ["class", "float", "name"]
         },
         "Checkbox": {
             "image": "elements/checkbox.png",
             "htmlElement" : "<label class=\"checkbox\" droppable insideDrag><input type=\"checkbox\"> Remember me</label>",
-            "settings" : ["id", "class", "float", "name"]
+            "settings" : ["class", "float", "name"]
         },
         "Radio Button": {
             "image": "elements/radio.png",
             "htmlElement" : "<label class=\"radio\" droppable insideDrag><input type=\"radio\"> Yes</label>",
-            "settings" : ["id", "class", "float", "name"]
+            "settings" : ["class", "float", "name"]
         },
         "Text Area": {
             "image": "elements/text_area.png",
             "htmlElement" : "<div class=\"form-group\" droppable insideDrag><label droppable>Your response:</label><textarea class=\"form-control\"></textarea></div>",
-            "settings" : ["id", "class", "placeholder", "float", "name"]
+            "settings" : ["class", "placeholder", "float", "name"]
         }
     },
     "Buttons": {
         "Button": {
             "image": "elements/button.png",
             "htmlElement" : "<a href=\"#\" class=\"btn btn-default\" droppable insideDrag>Click!</a>",
-            "settings" : ["id", "class"]
+            "settings" : ["class"]
         },
         "Button Group": {
             "image": "elements/button_group.png",
             "htmlElement" : "<div class=\"btn-group\" droppable insideDrag><a href=\"#\" class=\"btn btn-default\" droppable>Button 1</a><a href=\"#\" class=\"btn btn-default\" droppable>Button 2</a><a href=\"#\" class=\"btn btn-default\" droppable>Button 3</a></div>",
-            "settings" : ["id", "class", "float"]
+            "settings" : ["class", "float"]
         }
     },
     "Elements": {
         "Progress Bar": {
             "image": "elements/progressbar.png",
             "htmlElement" : "<div class=\"progress\" insideDrag><div class=\"progress-bar\" style=\"width: 50%\"></div></div>",
-            "settings" : ["id", "class"]
+            "settings" : ["class"]
         },
         "Tag Label": {
             "image": "elements/label.png",
             "htmlElement" : "<span class=\"label label-default\" droppable insideDrag>Tag Label</span>",
-            "settings" : ["id", "class", "float"]
+            "settings" : ["class", "float"]
         },
         "Badge": {
             "image": "elements/badge.png",
             "htmlElement" : "<span class=\"badge\" droppable insideDrag>Badge</span>",
-            "settings" : ["id", "class", "float"]
+            "settings" : ["class", "float"]
         },
         "Image": {
             "image": "elements/image.png",
             "htmlElement" : "<img src=\"http://photos.prnewswire.com/prnvar/20121108/NY07649LOGO-b?max=100\" insideDrag>",
-            "settings" : ["id", "class", "float", "alt", "width", "height"]
+            "settings" : ["class", "float", "alt", "width", "height"]
         },
         "Well": {
             "image": "elements/well.png",
             "htmlElement" : "<div class=\"well\" droppable insideDrag><h3 droppable>Well!</h3><p droppable>This is something.</p></div>",
-            "settings" : ["id", "class"]
+            "settings" : ["class"]
         },
         "Alert": {
             "image": "elements/alert.png",
             "htmlElement" : "<div class=\"alert\" droppable insideDrag><h3 droppable>Alert!</h3><p droppable>This is not a test</p></div>",
-            "settings" : ["id", "class"]
+            "settings" : ["class"]
         },
         "Horizontal Rule": {
             "image": "elements/hr.png",
             "htmlElement" : "<hr insideDrag>",
-            "settings" : ["id", "class"]
+            "settings" : ["class"]
         },
         "Pagination": {
             "image": "elements/pagenation.png",
             "htmlElement" : "<ul class=\"pagination\" insideDrag><li droppable><a href=\"#\" droppable>Prev</a></li><li droppable><a href=\"#\" droppable>1</a></li><li droppable><a href=\"#\" droppable>2</a></li><li droppable><a href=\"#\" droppable>3</a></li><li droppable><a href=\"#\" droppable>Next</a></li></ul>",
-            "settings" : ["id", "class", "float"]
+            "settings" : ["class", "float"]
         }
     }
 }

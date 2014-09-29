@@ -1,15 +1,6 @@
 {
-    "id": {
-        "htmlElement" : "<div class=\"form-group\"><label>ID:</label><input type=\"text\" class=\"idInput form-control\"></div>",
-        "change": {
-            "eventType": "keyup",
-            "attrType": "attribute",
-            "attrName": "id",
-            "eventEmitter" : ".idInput"
-        }
-    },
     "class": {
-        "htmlElement" : "<div class=\"form-group\"><label>Classes:</label><input type=\"text\" class=\"classInput form-control\"></div>",
+        "htmlElement" : "<div class=\"form-group\"><label>Classes: (Separate by space)</label><input type=\"text\" class=\"classInput form-control\"></div>",
         "change": {
             "eventType": "keyup",
             "attrType": "attribute",
@@ -78,6 +69,25 @@
             "attrType": "attribute",
             "attrName": "height",
             "eventEmitter" : ".heightInput"
+        }
+    },
+    "gridLayout" : {
+        "htmlElement" : "<div class=\"form-group\"><label>Grid Layout:</label><select class=\"gridLayoutInput form-control\"><option value=\"6-6\">6-6</option><option value=\"4-4-4\">4-4-4</option><option value=\"4-8\">4-8</option><option value=\"8-4\">8-4</option><option value=\"3-3-3-3\">3-3-3-3</option><option value=\"2-10\">2-10</option><option value=\"10-2\">10-2</option><option value=\"3-9\">9-3</option><option value=\"custom\">custom</option></select></div>",
+        "hiddenHtmlElement": "<input type=\"text\" class=\"gridLayoutCustomInput\">",
+        "change": {
+            "eventFunction" : "",
+            "eventType": "change",
+            "attrType": "html",
+            "eventEmitter" : ".gridLayoutInput"
+        }
+    },
+    "addChildSpan" : {
+        "htmlElement" : "<div class=\"form-group\"><label>Add Child:</label><a href=\"#\" class=\"btn btn-primary addGridChildSpanButton\">Grid Span</a></div>",
+        "change": {
+            "eventFunction" : "addGridChildSpan",
+            "eventType": "click",
+            "attrType": "html",
+            "eventEmitter" : ".addGridChildSpanButton"
         }
     }
 }
